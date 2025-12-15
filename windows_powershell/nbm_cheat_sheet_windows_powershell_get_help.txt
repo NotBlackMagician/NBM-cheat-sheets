@@ -1,0 +1,50 @@
+Cheat sheet made by Not Black Magic
+Buy me a coffe: 
+https://ko-fi.com/piotropoka
+Or rate me on Github :) (That is free!)
+https://github.com/NotBlackMagician
+
+
+GETTING INFO ON HOW A COMMAND WORKS
+Get-Help <command> -Detailed - Shows information about command, how it works, what options you have and gives you examples of use with other commands
+EXAMPLES: 
+Get-Help Get-ChildItem -Detailed
+Get-Help gci -Detailed
+Get-Help Get-Help -Detailed
+
+
+SAVING COMMAND'S OUTPUT, SO YOU CAN EASILY READ IT
+Get-Help <command> -Detailed | echo > ~\Documents\file_name.ext - saves the output in file in your "Documents" folder. Later, you can open it
+EXAMPLES:
+Get-Help Get-ChildItem -Detailed | echo > ~\Documents\command_output.txt
+Get-Help Get-ChildItem -Detailed | echo > "~\Documents\command output.txt"
+
+
+FINDING COMMAND BY ALIAS
+Get-Command <alias>
+Get-Alias <alias>
+EXAMPLES:
+Get-Command gci
+Get-Alias gci
+
+
+FINDING ALIASES
+Get-Alias -Definition <command>
+EXAMPLES:
+Get-Alias -Definition Get-ChildItem
+
+
+GET ALL PARAMETERS OF COMMAND OR ALIAS
+Get-Command <command> | Select-Object -Property *
+Get-Alias <alias> | Select-Object -Property *
+EXAMPLES:
+Get-Command Get-ChildItem | Select-Object -Property *
+Get-Alias gci | Select-Object -Property *
+
+
+GET SPECIFIC PARAMETER OF COMMAND
+Get-Command <command> | Select-Object -Property Definition
+Get-Command <command> | Select-Object -ExpandProperty Definition
+EXAMPLES:
+Get-Command Get-ChildItem | Select-Object -Property Definition
+Get-Command Get-ChildItem | Select-Object -ExpandProperty Definition
