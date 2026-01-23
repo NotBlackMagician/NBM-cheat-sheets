@@ -1,0 +1,17 @@
+If what you found here helped you in any way, consider following me on my social media in order to help me reach further audience: Mastodon- https://social.linux.pizza/@SecretDevil  
+Rate me on Github!- https://github.com/NotBlackMagician
+You can also support me on Ko-fi!- https://ko-fi.com/piotropoka
+
+
+Inkscape shortcuts used in this tutorial
+
+tools:
+s - selector
+b - bezier curve
+
+Ctrl + Shift + X - XML Editor
+
+Ctrl + D - duplicate layer
+Ctrl + G - group
+
+Mouse + Ctrl - draw/move perfectly over axis
