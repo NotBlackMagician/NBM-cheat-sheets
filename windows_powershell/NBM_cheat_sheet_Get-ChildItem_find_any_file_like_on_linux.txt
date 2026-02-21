@@ -1,0 +1,106 @@
+Cheat sheet created by NotBlackMagic
+
+If you find useful what I do, please support me by:
+- following me on Mastodon - https://social.linux.pizza/@SecretDevil
+- following me on LinkedIn - https://www.linkedin.com/in/piotr-opoka-4320143a5/
+to help me reach further audience
+- rating me on GitHub - https://github.com/NotBlackMagician
+to give me more recognition
+- tipping me on Ko-fi - https://ko-fi.com/piotropoka
+to make such tutorials worth the time spent on them
+
+
+Most used commands:
+
+
+case-sensitive search
+
+Get-ChildItem -Path C:\ -Recurse -Filter "*whatYouNeed*" |   
+Where-Object { $_.Name -clike "*whatYouNeed*" } |   
+Select { $_.FullName } |
+Table -Wrap -AutoSize |
+Out-File ~\Documents\command_output.txt
+
+
+search by file's content
+
+Get-ChildItem -Path C:\ -Recurse | 
+Select-String -Pattern 'what you remember' -AllMatch -Context 2 |
+Table -Wrap -AutoSize |
+Out-File ~\Documents\command_output.txt
+
+
+
+EXPLANATIONS AND MOST POPULAR PARAMETERS:
+
+GET-CHILDITEM
+Get-ChildItem - ( aliases: dir, ls, gci ), lists content of folder/directory just like Linux ls command
+-Path - tells where the command should be looking for files to show us ( ~\ will look for files inside you user's directory, ~\Documents\ will look for them inside Documents folder)
+-Recurse - tells the gci command to be recurring, which means that the operation will be repeated inside every folder of the path that we specified
+-Filter - filters the output of the command to only show what matches the filter. For example -Filter "*.txt" will look only for .txt files
+-Depth - specifies how deep you want the gci to look for a file/folder. Often combined with -Recurse. For example -Recurse -Depth 1 tells the gci to look inside the current folder and inside every folder of the current folder
+-File - look only for files
+-Directory - look only for folders
+-ErrorAction SilentlyContinue - don't display error messages and continue working
+-Force - show files usually not accessible to the user (system files, hidden files)
+-Hidden - show ONLY files usually not accessible to the user (system files, hidden files)
+
+
+WHERE-OBJECT
+Where-Object - ( aliases: ?, where ) used as a filter when you have many results
+Where-Object { $_.Name -clike "*Item*" } - look for a name that has exactly the same letters
+Where-Object { $_.FullName -notlike "*more*" } - look for a file/folder, but in paths NOT containing "more" as a directory or as a part of filename
+Get-ChildItem -Recurse -Filter "*green*" -File | Where-Object { $_.FullName -match "\\More items\\" } - looks for a file with "green" in its name that at some point is inside of "more items" folder (use -cmatch to look only inside "More items" folder)
+
+EXAMPLE:
+Get-ChildItem -Recurse -Filter "*item*" | 
+Where-Object { $_.name -clike"*green*" }
+
+
+SELECT-OBJECT
+Select-Object - ( aliases: Select ) selects which parameters of results to show, used as another filter
+Select-Object { $_.FullName } - shows only filenames with paths
+Select-Object -Property * - shows all properties
+Select-Object -Property Path - shows only the path of an object
+
+EXAMPLE:
+Get-ChildItem -Path C:\ -Recurse -File | 
+Select-String -Pattern 'match' -List | 
+Select -Property Path
+
+
+SELECT-STRING
+Select-String - ( aliases: sls ) selects text within a file (even inside picture files, like .svg files)
+Select-String -Pattern 'match' - looks for a pattern specified ( "match" in our case )
+Select-String -List - shows only first pattern found in eachfile searched. Great for listing files
+Select-String -AllMatch - shows every pattern found inside every file searched
+Select-String -Context 2 - shows content of specified amount of lines before and after the found match
+Select-String -Raw - doesn't show the path to the file, only its content. Great for scripting and automation. Often used with -Context option
+
+EXAMPLE:
+Get-ChildItem -Path C:\ -Filter "*.txt" -Recurse | 
+Select-String -Pattern 'match' -List | 
+Select -Property Path
+
+
+OUT-FILE
+Out-File - ( aliases: > ) creates a file or puts the content into the file specified
+-Append - doesn't erase the content of the file, but puts everything at the end of the specified file, like Out-File -Append ~\Documents\command_output.txt
+
+Get-ChildItem -Filter "*.txt" -Recurse | 
+Select-String -Pattern 'match' -List | 
+Select -Property Path | 
+Out-File ~\Documents\command_output.txt
+
+
+FORMAT-TABLE
+Format-Table - usually used for making the view of parameters clearer, but can also be a filter or a bug fix, like in our case
+Format-Table -Wrap -AutoSize - allows for any output of command to be shown, no matter how long.
+
+EXAMPLES:
+Get-ChildItem -Path C:\ -Filter "*.txt" -Recurse | 
+Select-String -Pattern 'match' -List | 
+Select -Property Path | 
+Format-Table -Wrap -AutoSize |
+Out-File ~\Documents\command_output.txt
+
