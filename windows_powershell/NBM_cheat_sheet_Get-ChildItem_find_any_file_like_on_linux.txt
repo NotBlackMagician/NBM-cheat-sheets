@@ -8,7 +8,7 @@ to help me reach further audience
 to give me more recognition
 - tipping me on Ko-fi - https://ko-fi.com/piotropoka
 to make such tutorials worth the time spent on them
-
+Thanks!
 
 Most used commands:
 
@@ -103,4 +103,5 @@ Select-String -Pattern 'match' -List |
 Select -Property Path | 
 Format-Table -Wrap -AutoSize |
 Out-File ~\Documents\command_output.txt
+
 
